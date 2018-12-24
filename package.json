@@ -1,0 +1,31 @@
+{
+  "name": "itemly-vue",
+  "version": "0.0.1",
+  "description": "Itemly Todo app in Vue.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "webpack-dev-server"
+  },
+  "keywords": [
+    "vue",
+    "todo"
+  ],
+  "author": "Nicholas Pretorius",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "css-loader": "^2.0.2",
+    "html-webpack-plugin": "^3.2.0",
+    "vue": "^2.5.21",
+    "vue-loader": "^15.4.2",
+    "vue-template-compiler": "^2.5.21",
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.1.14"
+  }
+}
