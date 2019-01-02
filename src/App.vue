@@ -1,9 +1,10 @@
 <template>
     <div>
         <h1>Itemly Todo: Vue</h1>
-        <ul v-for="todo in $data.todos.filter(hideCompleted)" :key="todo">
+        <p>You have {{ $data.todos.length }} todos.</p>
+        <ul v-for="todo in $data.todos.filter(hideCompleted)" v-bind:key="todo.id">
             <li v-bind:class="{ complete: todo.done }"> 
-                {{ todo.text }} 
+                {{ todo.description }} 
                 
                 <input type="checkbox" v-model="todo.done">
             </li>
@@ -22,13 +23,29 @@
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
         methods: {
             addTodo(e) {
                 e.preventDefault();
-                this.$data.todos.push({ text: this.text, done: this.done});
-                this.text = "";
-                this.done = false;
+                axios.post('http://localhost:3000/todos', {
+                    description: this.text,
+                    done: false, 
+                }).then(response => {
+                    this.text = "";
+                    this.getTodos();
+                });
+                //this.$data.todos.push({ text: this.text, done: this.done});
+                
+            },
+            getTodos() {
+                console.log('getTodos() ', this.state.todos);
+                fetch('http://localhost:3000/todos')
+                    .then(response => response.json() )
+                    .then(json => {
+                        this.$props.state.todos = json;
+                });
             },
             hideCompleted(todo) {
                 if (this.$data.showDone) {
@@ -51,13 +68,11 @@
         color: darkslategray;
         font-size: 1.4em;
         margin: 1.4em;
-        width: 22em;
         position: relative;
     }
     input[type=text] {
         margin-top: 1em;
         padding: 0.8em;
-        width: 100%;
         font-size: 0.7em;
     }
     input[type=checkbox] {
